@@ -1,4 +1,4 @@
-package ru.itis.alg.thread;
+package ru.itis.thread;
 
 import java.util.ArrayList;
 import java.util.Collection;

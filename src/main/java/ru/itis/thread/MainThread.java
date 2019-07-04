@@ -1,4 +1,4 @@
-package ru.itis.alg.thread;
+package ru.itis.thread;
 
 public class MainThread implements Runnable {
     int id;
