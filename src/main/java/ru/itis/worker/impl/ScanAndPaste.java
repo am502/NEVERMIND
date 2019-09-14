@@ -1,4 +1,4 @@
-package ru.itis.robot;
+package ru.itis.worker.impl;
 
 import java.awt.*;
 import java.util.Scanner;
