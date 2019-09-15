@@ -1,13 +1,19 @@
 package ru.itis.worker.impl;
 
+import ru.itis.worker.StartPauseFrame;
+import ru.itis.worker.Worker;
+
 import java.awt.*;
 import java.util.Scanner;
 
 import static java.awt.event.KeyEvent.*;
 
 // Ставить русскую раскладку
-public class ScanAndPaste {
+public class ScanAndPaste implements Worker {
+    private static final int DELAY = 2000;
+
     private Robot robot;
+    private String text;
 
     public ScanAndPaste() {
         try {
@@ -15,24 +21,10 @@ public class ScanAndPaste {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+        text = new Scanner(System.in).nextLine();
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        ScanAndPaste object = new ScanAndPaste();
-
-        String text = sc.nextLine();
-
-        object.getRobot().delay(5000);
-
-        for (char c : text.toCharArray()) {
-            object.processChar(c);
-            object.getRobot().delay(30);
-        }
-    }
-
-    public void processChar(char c) {
+    private void processChar(char c) {
         boolean upper = Character.isUpperCase(c);
         c = Character.toLowerCase(c);
         switch (c) {
@@ -108,7 +100,22 @@ public class ScanAndPaste {
         }
     }
 
-    public Robot getRobot() {
-        return robot;
-    }
+	@Override
+	public void workOneTime() {
+		robot.delay(DELAY);
+
+		for (char c : text.toCharArray()) {
+			processChar(c);
+			robot.delay(30);
+		}
+
+		typeChar(VK_ENTER, false);
+
+		robot.delay(DELAY);
+	}
+
+	public static void main(String[] args) {
+		Worker worker = new ScanAndPaste();
+		EventQueue.invokeLater(() -> new StartPauseFrame(worker));
+	}
 }
