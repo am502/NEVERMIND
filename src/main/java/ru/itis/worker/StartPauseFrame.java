@@ -9,9 +9,11 @@ public class StartPauseFrame extends JFrame {
 
 	private JButton startPauseButton;
 	private AtomicBoolean isPaused;
+	private int delayAfterStart;
 
-	public StartPauseFrame(Worker worker) {
+	public StartPauseFrame(Worker worker, int delayAfterStart) {
 		isPaused = new AtomicBoolean(true);
+		this.delayAfterStart = delayAfterStart;
 
 		startPauseButton = new JButton(START);
 		startPauseButton.addActionListener(e -> startPause());
@@ -46,6 +48,11 @@ public class StartPauseFrame extends JFrame {
 			startPauseButton.setText(START);
 		} else {
 			startPauseButton.setText(PAUSE);
+			try {
+				Thread.sleep(delayAfterStart);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			notifyAll();
 		}
 	}

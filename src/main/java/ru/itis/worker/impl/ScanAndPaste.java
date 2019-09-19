@@ -10,7 +10,7 @@ import static java.awt.event.KeyEvent.*;
 
 // Ставить русскую раскладку
 public class ScanAndPaste implements Worker {
-    private static final int DELAY = 2000;
+    private static final int DELAY = 1000;
 
     private Robot robot;
     private String text;
@@ -102,8 +102,6 @@ public class ScanAndPaste implements Worker {
 
 	@Override
 	public void workOneTime() {
-		robot.delay(DELAY);
-
 		for (char c : text.toCharArray()) {
 			processChar(c);
 			robot.delay(30);
@@ -116,6 +114,6 @@ public class ScanAndPaste implements Worker {
 
 	public static void main(String[] args) {
 		Worker worker = new ScanAndPaste();
-		EventQueue.invokeLater(() -> new StartPauseFrame(worker));
+		EventQueue.invokeLater(() -> new StartPauseFrame(worker, 5000));
 	}
 }

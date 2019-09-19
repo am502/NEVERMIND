@@ -34,6 +34,6 @@ public class CenterClicker implements Worker {
 
 	public static void main(String[] args) {
 		Worker worker = new CenterClicker();
-		EventQueue.invokeLater(() -> new StartPauseFrame(worker));
+		EventQueue.invokeLater(() -> new StartPauseFrame(worker, 5000));
 	}
 }
