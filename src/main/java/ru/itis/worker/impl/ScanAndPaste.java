@@ -10,7 +10,7 @@ import static java.awt.event.KeyEvent.*;
 
 // Ставить русскую раскладку
 public class ScanAndPaste implements Worker {
-    private static final int DELAY = 1000;
+    private static final int DELAY = 2000;
 
     private Robot robot;
     private String text;
