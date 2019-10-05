@@ -1,0 +1,6 @@
+1) cd ... (root)
+not cd .../ru/itis/worker
+2) javac ru/itis/worker/Worker.java ru/itis/worker/StartPauseFrame.java ru/itis/worker/impl/CenterClicker.java
+3) jar cvfe CenterClicker.jar ru.itis.worker.impl.CenterClicker ru/itis/worker/Worker.class
+ru/itis/worker/StartPauseFrame.class ru/itis/worker/impl/CenterClicker.class
+4) optional: java -jar CenterClicker.jar
