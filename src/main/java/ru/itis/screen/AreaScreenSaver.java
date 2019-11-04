@@ -1,5 +1,7 @@
 package ru.itis.screen;
 
+import ru.itis.utils.Utils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,58 +17,56 @@ import java.util.Date;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class AreaScreenSaver {
-	public static final String PATH_TO_SCREENS = "src/main/resources/homework/screens/";
+    private DateFormat dateFormat;
+    private Robot robot;
+    private Rectangle area;
 
-	private DateFormat dateFormat;
-	private Robot robot;
-	private Rectangle area;
+    public AreaScreenSaver() {
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
-	public AreaScreenSaver() {
-		dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
 
-		try {
-			robot = new Robot();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
+        JButton button = new JButton();
+        button.setText("Start");
+        button.addKeyListener(new KeyAdapter() {
+            Point start;
 
-		JButton button = new JButton();
-		button.setText("Start");
-		button.addKeyListener(new KeyAdapter() {
-			Point start;
+            @Override
+            public void keyTyped(KeyEvent event) {
+                if (event.getKeyChar() == ' ') {
+                    if (start == null) {
+                        start = MouseInfo.getPointerInfo().getLocation();
+                        button.setText("End");
+                    } else if (area == null) {
+                        Point end = MouseInfo.getPointerInfo().getLocation();
+                        area = new Rectangle(start.x, start.y, end.x - start.x, end.y - start.y);
+                        button.setText("Screen");
+                    } else {
+                        try {
+                            BufferedImage image = robot.createScreenCapture(area);
+                            ImageIO.write(image, "png",
+                                    new File(Utils.PATH_TO_RESOURCES + dateFormat.format(new Date()) + ".png"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
 
-			@Override
-			public void keyTyped(KeyEvent event) {
-				if (event.getKeyChar() == ' ') {
-					if (start == null) {
-						start = MouseInfo.getPointerInfo().getLocation();
-						button.setText("End");
-					} else if (area == null) {
-						Point end = MouseInfo.getPointerInfo().getLocation();
-						area = new Rectangle(start.x, start.y, end.x - start.x, end.y - start.y);
-						button.setText("Screen");
-					} else {
-						try {
-							BufferedImage image = robot.createScreenCapture(area);
-							ImageIO.write(image, "png",
-									new File(PATH_TO_SCREENS + dateFormat.format(new Date()) + ".png"));
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		});
+        JFrame frame = new JFrame();
+        frame.add(button);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
 
-		JFrame frame = new JFrame();
-		frame.add(button);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new AreaScreenSaver();
-	}
+    public static void main(String[] args) {
+        new AreaScreenSaver();
+    }
 }
