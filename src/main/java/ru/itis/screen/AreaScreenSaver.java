@@ -49,7 +49,7 @@ public class AreaScreenSaver {
                         try {
                             BufferedImage image = robot.createScreenCapture(area);
                             ImageIO.write(image, "png",
-                                    new File(Utils.PATH_TO_RESOURCES + dateFormat.format(new Date()) + ".png"));
+                                    new File("./" + dateFormat.format(new Date()) + ".png"));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

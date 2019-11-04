@@ -4,3 +4,5 @@ not cd .../ru/itis/worker
 3) jar cvfe CenterClicker.jar ru.itis.worker.impl.CenterClicker ru/itis/worker/Worker.class
 ru/itis/worker/StartPauseFrame.class ru/itis/worker/impl/CenterClicker.class
 4) optional: java -jar CenterClicker.jar
+5) jar cvfe AreaScreenSaver.jar ru.itis.screen.AreaScreenSaver
+ru/itis/screen/AreaScreenSaver.class ru/itis/screen/AreaScreenSaver\$1.class
