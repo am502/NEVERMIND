@@ -13,6 +13,15 @@ public class Sprite {
         int[] pixels = new int[Parameters.getPixelSize() * Parameters.getPixelSize()
                 * LetterSheet.LETTER_SIZE * LetterSheet.LETTER_SIZE];
 
+        int rowIndex = 1 + LetterSheet.LETTER_SIZE * row + row;
+        int columnIndex = 1 + LetterSheet.LETTER_SIZE * column + column;
+
+        for (int i = 0; i < LetterSheet.LETTER_SIZE; i++) {
+            for (int j = 0; j < LetterSheet.LETTER_SIZE; j++) {
+//                int currentPixel = LetterSheet.getPixels()[] convert to matrix ?
+            }
+        }
+
         return new Sprite(pixels);
     }
 
