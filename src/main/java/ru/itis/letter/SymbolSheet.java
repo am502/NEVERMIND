@@ -12,13 +12,13 @@ public class SymbolSheet {
 
     static {
         try {
-            BufferedImage image = ImageIO.read(new FileInputStream("/resources/letter/symbols.png"));
+            BufferedImage image = ImageIO.read(new FileInputStream("src/main/resources/letter/symbols.png"));
             int height = image.getHeight();
             int width = image.getWidth();
             pixels = new int[height][width];
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    pixels[i][j] = image.getRGB(i, j);
+                    pixels[i][j] = image.getRGB(j, i);
                 }
             }
         } catch (IOException e) {
